@@ -43,7 +43,7 @@ form.addEventListener('submit', async function(e){
 
     if(name && suggestion){
         try {
-            await fetch("TON_LIEN_EXEC", {
+            await fetch("https://script.google.com/macros/s/AKfycbyZPVRJDLLNllbjBRwhYlTOnHr4Efs5SrRavsAMfvcJmRatUvhdzW7nBAZnIIQ1CQnm7A/exec", {
                 method: "POST",
                 headers: {"Content-Type":"application/json"},
                 body: JSON.stringify({
