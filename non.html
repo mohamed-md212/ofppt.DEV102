@@ -14,7 +14,7 @@ input, textarea{
 textarea{ resize:vertical; min-height:80px; }
 .btn{ display:block; width:100%; padding:12px; margin-top:15px; border:none; border-radius:8px; background:#004cbf; color:white; cursor:pointer; font-size:17px; }
 .btn:hover{ opacity:0.85; }
-.back{background:#00a859;margin-top:10px;} /* زر الرجوع */
+.back{background:#00a859;margin-top:10px;}
 </style>
 </head>
 <body>
@@ -23,19 +23,12 @@ textarea{ resize:vertical; min-height:80px; }
 <img src="PIE.webp" class="logo" alt="OFPPT Logo">
 <h2>Vous avez choisi <b>Non</b></h2>
 <p>Veuillez entrer votre nom et votre suggestion :</p>
-<form action="https://script.google.com/macros/s/AKfycbw-EX_t0ueeSaCtRYwdR55Qm4Gtso4VuX8-HqR6wAyVmH14tJRtXeVYXRF4QQjOA2UyLg/exec" method="post">
-  <input type="text" name="nom" placeholder="Votre nom" required>
-  <textarea name="suggestion" placeholder="Votre suggestion ou idée" required></textarea>
-  <input type="hidden" name="choix" value="NON">
-  <button type="submit" class="btn">Envoyer</button>
-</form>
 
-<!-- 
 <form id="suggestionForm">
   <input type="text" id="name" placeholder="Votre nom" required>
   <textarea id="suggestion" placeholder="Votre suggestion ou idée" required></textarea>
   <button type="submit" class="btn">Envoyer</button>
-</form> -->
+</form>
 
 <div id="thanks" style="display:none; margin-top:15px; color:#004cbf; font-weight:bold;">
 ✔ Merci ! Votre réponse a été enregistrée.
@@ -44,28 +37,39 @@ textarea{ resize:vertical; min-height:80px; }
 <script>
 const form = document.getElementById('suggestionForm');
 form.addEventListener('submit', async function(e){
-    e.preventDefault();
+    e.preventDefault(); // empêche le navigateur d’aller sur Apps Script
     const name = document.getElementById('name').value.trim();
     const suggestion = document.getElementById('suggestion').value.trim();
 
     if(name && suggestion){
-        await fetch("https://script.google.com/macros/s/AKfycbw-EX_t0ueeSaCtRYwdR55Qm4Gtso4VuX8-HqR6wAyVmH14tJRtXeVYXRF4QQjOA2UyLg/exec", {
-            method: "POST",
-            headers: {"Content-Type":"application/json"},
-            body: JSON.stringify({
-                choix:"NON",
-                nom:name,
-                suggestion:suggestion
-            })
-        });
-
-        form.style.display = 'none';
-        document.getElementById('thanks').style.display = 'block';
+        try {
+            await fetch("TON_LIEN_EXEC", {
+                method: "POST",
+                headers: {"Content-Type":"application/json"},
+                body: JSON.stringify({
+                    choix:"NON",
+                    nom:name,
+                    suggestion:suggestion
+                })
+            });
+            form.style.display = 'none';
+            document.getElementById('thanks').style.display = 'block';
+        } catch (err) {
+            alert("Erreur : impossible d’envoyer les données.");
+            console.error(err);
+        }
     } else {
         alert("Veuillez remplir les deux champs.");
     }
 });
 </script>
+
+<!-- <form action="https://script.google.com/macros/s/AKfycbw-EX_t0ueeSaCtRYwdR55Qm4Gtso4VuX8-HqR6wAyVmH14tJRtXeVYXRF4QQjOA2UyLg/exec" method="post">
+  <input type="text" name="nom" placeholder="Votre nom" required>
+  <textarea name="suggestion" placeholder="Votre suggestion ou idée" required></textarea>
+  <input type="hidden" name="choix" value="NON">
+  <button type="submit" class="btn">Envoyer</button>
+</form> -->
 
 <button class="btn back" onclick="location.href='index.html'">⬅ Retour</button>
 </div>
