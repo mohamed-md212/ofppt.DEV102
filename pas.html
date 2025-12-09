@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>OFPPT - Pas de problème</title>
+<style>
+body{ font-family:Arial; background:#e6f0ff; text-align:center; padding:50px; }
+.container{ background:white; width:450px; margin:auto; padding:25px; border-radius:12px; box-shadow:0 6px 20px rgba(0,0,0,0.1);}
+img.logo{ width:120px; margin-bottom:20px; }
+h2{ color:#004cbf; }
+input, textarea{
+  width:100%; padding:10px; margin-top:12px; border-radius:6px; border:1px solid #ccc; box-sizing:border-box;
+}
+textarea{ resize:vertical; min-height:80px; }
+.btn{ display:block; width:100%; padding:12px; margin-top:15px; border:none; border-radius:8px; background:#004cbf; color:white; cursor:pointer; font-size:17px; }
+.btn:hover{ opacity:0.85; }
+.back{background:#00a859;margin-top:10px;} /* زر الرجوع */
+</style>
+</head>
+<body>
+
+<div class="container">
+<img src="PIE.webp" class="logo" alt="OFPPT Logo">
+<h2>Vous avez choisi <b>Pas de problème</b></h2>
+<p>Veuillez entrer votre nom et votre suggestion :</p>
+
+<form id="suggestionForm">
+  <input type="text" id="name" placeholder="Votre nom" required>
+  <textarea id="suggestion" placeholder="Votre suggestion ou idée" required></textarea>
+  <button type="submit" class="btn">Envoyer</button>
+</form>
+
+<div id="thanks" style="display:none; margin-top:15px; color:#004cbf; font-weight:bold;">
+✔ Merci ! Votre réponse a été enregistrée.
+</div>
+
+<script>
+const form = document.getElementById('suggestionForm');
+form.addEventListener('submit', async function(e){
+    e.preventDefault();
+    const name = document.getElementById('name').value.trim();
+    const suggestion = document.getElementById('suggestion').value.trim();
+
+    if(name && suggestion){
+        await fetch("https://script.google.com/macros/s/AKfycbw-EX_t0ueeSaCtRYwdR55Qm4Gtso4VuX8-HqR6wAyVmH14tJRtXeVYXRF4QQjOA2UyLg/exec", {
+            method: "POST",
+            headers: {"Content-Type":"application/json"},
+            body: JSON.stringify({
+                choix:"NON",
+                nom:name,
+                suggestion:suggestion
+            })
+        });
+
+        form.style.display = 'none';
+        document.getElementById('thanks').style.display = 'block';
+    } else {
+        alert("Veuillez remplir les deux champs.");
+    }
+});
+</script>
+
+<button class="btn back" onclick="location.href='index.html'">⬅ Retour</button>
+</div>
+
+</body>
+</html>
