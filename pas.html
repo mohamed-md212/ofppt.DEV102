@@ -24,11 +24,17 @@ textarea{ resize:vertical; min-height:80px; }
 <h2>Vous avez choisi <b>Pas de problème</b></h2>
 <p>Veuillez entrer votre nom et votre suggestion :</p>
 
-<form id="suggestionForm">
+<form action="https://script.google.com/macros/s/AKfycbw-EX_t0ueeSaCtRYwdR55Qm4Gtso4VuX8-HqR6wAyVmH14tJRtXeVYXRF4QQjOA2UyLg/exec" method="post">
+  <input type="text" name="nom" placeholder="Votre nom" required>
+  <textarea name="suggestion" placeholder="Votre suggestion ou idée" required></textarea>
+  <input type="hidden" name="choix" value="NON">
+  <button type="submit" class="btn">Envoyer</button>
+</form>
+<!-- <form id="suggestionForm">
   <input type="text" id="name" placeholder="Votre nom" required>
   <textarea id="suggestion" placeholder="Votre suggestion ou idée" required></textarea>
   <button type="submit" class="btn">Envoyer</button>
-</form>
+</form> -->
 
 <div id="thanks" style="display:none; margin-top:15px; color:#004cbf; font-weight:bold;">
 ✔ Merci ! Votre réponse a été enregistrée.
